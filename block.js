@@ -5,7 +5,7 @@ class Block{
     constructor({timestamp, lasthash, hash, data, nonce, difficulty}){
         this.timestamp = timestamp;
         this.lasthash = lasthash;
-        this.hash = cryptoHash(timestamp, lasthash, data);
+        this.hash = hash;
         this.data = data;
         this.nonce = nonce;
         this.difficulty = difficulty;
@@ -21,23 +21,24 @@ class Block{
 
         let hash, timestamp;
         const lasthash = lastBlock.hash;
-        const { difficulty } = lastBlock;
-        let nunce = 0;
+        const difficulty = lastBlock.difficulty;
+        let nonce = 0;
+        let i = 1;
 
         do{
-            nunce++;
+            nonce++;
             timestamp = Date.now();
-            hash = cryptoHash(timestamp, lasthash, data, nunce, difficulty);
-            console.log(nunce);
+            hash = cryptoHash(timestamp, lasthash, data, nonce, difficulty);
         } while (
-            hash.substring(0, difficulty) !== '0'.repeat(difficulty)
+            //hash.substring(0, difficulty) !== '0'.repeat(difficulty)
+            i == 2
             );
 
         return new this({
             timestamp,
             lasthash,
             data,
-            nunce,
+            nonce,
             difficulty,
             hash
         });

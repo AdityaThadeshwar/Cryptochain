@@ -9,11 +9,8 @@ class Blockchain{
     }
 
     //add new block to the blockchain
-    addBlock({ data }){
-        const newBlock = Block.mineBlock({
-            lastBlock: this.chain[this.chain.lenght-1],
-            data
-        });
+    addBlock(data){
+        const newBlock = Block.mineBlock(this.chain[this.chain.length-1], data);
 
         this.chain.push(newBlock);
     }
@@ -29,14 +26,14 @@ class Blockchain{
         //validate each block
         for(let i = 1; i < chain.length; i++){
 
-            const {timestam, lasthash, hash, data, nunce, difficulty} = chain[i];
+            const {timestam, lasthash, hash, data, nonce, difficulty} = chain[i];
 
             //validate previous hash of current block
             const actualLastHash = block[i-1].hash;
             if(lasthash !== actualLastHash) return false;
 
             //validate hash of current block
-            const validatedHash = cryptoHash(timestamp, lasthash, data, nunce, difficulty)
+            const validatedHash = cryptoHash(timestamp, lasthash, data, nonce, difficulty)
             if(hash !== validatedHash) return false;
         }
 
