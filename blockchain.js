@@ -58,7 +58,6 @@ class Blockchain{
             return;
         }
 
-
         //Replace current chain with incomming chain
         console.log('Replacing chain with ',chain);
         this.chain = chain;
