@@ -5,5 +5,4 @@ class Block{
         this.hash = hash;
         this.data = data;
     }
-    
 }
