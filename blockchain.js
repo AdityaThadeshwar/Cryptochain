@@ -5,7 +5,7 @@ class Blockchain{
 
     //create genesis block when blockchain is created
     constructor(){
-        this.chain = [Block.genesis1()];
+        this.chain = [Block.genesis()];
     }
 
     //add new block to the blockchain
@@ -29,14 +29,14 @@ class Blockchain{
         //validate each block
         for(let i = 1; i < chain.length; i++){
 
-            const {timestam, lasthash, hash, data} = chain[i];
+            const {timestam, lasthash, hash, data, nunce, difficulty} = chain[i];
 
             //validate previous hash of current block
             const actualLastHash = block[i-1].hash;
             if(lasthash !== actualLastHash) return false;
 
             //validate hash of current block
-            const validatedHash = cryptoHash(timestamp, lasthash, data)
+            const validatedHash = cryptoHash(timestamp, lasthash, data, nunce, difficulty)
             if(hash !== validatedHash) return false;
         }
 
@@ -63,5 +63,17 @@ class Blockchain{
         this.chain = chain;
     }
 }
+
+const blockchain = new Blockchain();
+
+console.log('Started')
+
+blockchain.addBlock('Aditya');
+console.log('First block added')
+
+blockchain.addBlock('Thadeshwar');
+console.log('Second block added')
+
+console.log(blockchain);
 
 module.exports = Blockchain;
