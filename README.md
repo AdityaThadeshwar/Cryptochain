@@ -7,6 +7,6 @@ Jest for testing
 
 >npm i jest@23.6.0 --save-dev
 
-Convert sha256 digest from hex to decimal
+Convert sha256 digest from hex to binary
 
->npm i hex-to-decimal@1.0.1 --save
+>npm i hex-to-binary@1.0.1 --save
