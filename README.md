@@ -18,5 +18,5 @@ Nodemon dependency to automatically restart app after changes (Dev dependency)
 Body Parser dependency to parse request in json format
 >npm i body-parser@1.18.3 --save
 
-Redis server
+Redis server for Publisher/Subscriber
 >npm i -redis@2.8.0 --save
