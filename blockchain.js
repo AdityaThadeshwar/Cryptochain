@@ -46,7 +46,7 @@ class Blockchain{
             //validate if difficulty jump between current and previous block is more than 1
             const lastDifficulty = chain[i-1].difficulty;
 
-            if((lastDifficulty-difficulty) > 1) return false;
+            if(Math.abs(lastDifficulty-difficulty) > 1) return false;
         }
 
         //return true if bockchain is valid
