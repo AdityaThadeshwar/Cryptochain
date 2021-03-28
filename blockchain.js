@@ -71,6 +71,16 @@ console.log('First block added')
 blockchain.addBlock('Thadeshwar');
 console.log('Second block added')
 
+blockchain.addBlock('Bears');
+console.log('Third block added')
+
+blockchain.addBlock('Battle');
+console.log('Forth block added')
+
+blockchain.addBlock('Thadeshwar');
+console.log('Fifth block added')
+
+
 console.log(blockchain);
 
 module.exports = Blockchain;
