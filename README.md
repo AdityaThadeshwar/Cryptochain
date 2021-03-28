@@ -18,3 +18,7 @@ Express API dependency
 Nodemon dependency to automatically restart app after changes (Dev dependency)
 
 >npm i nodemon@1.18.4 --dev-dave
+
+Body Parser dependency to parse request in json format
+
+npm i body-parser@1.18.3 --save
