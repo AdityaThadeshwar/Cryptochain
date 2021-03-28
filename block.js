@@ -49,10 +49,14 @@ class Block{
 
         if(difficulty <= 1) return 1;
 
-        const difference = timestamp -  originalBlock.timestamp;
+        let difference = timestamp - originalBlock.timestamp;
 
-        if(difference > MINE_RATE) return difficulty - 1;
+        //console.log('OriginalBlock: ', originalBlock.timestamp, ' Timestamp: ', timestamp, 'Minerate: ', MINE_RATE)
 
+        if(difference > MINE_RATE) {
+            //console.log('Difficulty reduced')
+            return difficulty - 1;
+        }
         return difficulty + 1;
     }
 }

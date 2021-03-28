@@ -4,7 +4,7 @@ const MINE_RATE = 1000;
 const INITIAL_DIFFICULTY = 2;
 
 const GENESIS_DATA = {
-    timestamp: 1,
+    timestamp: Date.now(),
     lasthash: 'last-hash',
     hash: 'hash-one',
     data: [],
@@ -12,4 +12,4 @@ const GENESIS_DATA = {
     difficulty: INITIAL_DIFFICULTY
 };
 
-module.exports = {GENESIS_DATA}, MINE_RATE;
+module.exports = {GENESIS_DATA, MINE_RATE};
