@@ -12,7 +12,14 @@ class Blockchain{
     addBlock(data){
         const newBlock = Block.mineBlock(this.chain[this.chain.length-1], data);
 
-        this.chain.push(newBlock);
+        if(Blockchain.isVaidChain(this.chain)) {
+            this.chain.push(newBlock);
+        }
+
+        else{
+            console.log('Invalid chain');
+            return;
+        } 
     }
 
 
@@ -26,15 +33,20 @@ class Blockchain{
         //validate each block
         for(let i = 1; i < chain.length; i++){
 
-            const {timestam, lasthash, hash, data, nonce, difficulty} = chain[i];
+            const {timestamp, lasthash, hash, data, nonce, difficulty} = chain[i];
 
             //validate previous hash of current block
-            const actualLastHash = block[i-1].hash;
+            const actualLastHash = chain[i-1].hash;
             if(lasthash !== actualLastHash) return false;
 
             //validate hash of current block
             const validatedHash = cryptoHash(timestamp, lasthash, data, nonce, difficulty)
             if(hash !== validatedHash) return false;
+
+            //validate if difficulty jump between current and previous block is more than 1
+            const lastDifficulty = chain[i-1].difficulty;
+
+            if((lastDifficulty-difficulty) > 1) return false;
         }
 
         //return true if bockchain is valid
@@ -61,26 +73,26 @@ class Blockchain{
     }
 }
 
-const blockchain = new Blockchain();
+// const blockchain = new Blockchain();
 
-console.log('Started')
+// console.log('Started')
 
-blockchain.addBlock('Aditya');
-console.log('First block added')
+// blockchain.addBlock('Aditya');
+// console.log('First block added')
 
-blockchain.addBlock('Thadeshwar');
-console.log('Second block added')
+// blockchain.addBlock('Thadeshwar');
+// console.log('Second block added')
 
-blockchain.addBlock('Bears');
-console.log('Third block added')
+// blockchain.addBlock('Bears');
+// console.log('Third block added')
 
-blockchain.addBlock('Battle');
-console.log('Forth block added')
+// blockchain.addBlock('Battle');
+// console.log('Forth block added')
 
-blockchain.addBlock('Thadeshwar');
-console.log('Fifth block added')
+// blockchain.addBlock('Thadeshwar');
+// console.log('Fifth block added')
 
 
-console.log(blockchain);
+// console.log(blockchain);
 
 module.exports = Blockchain;
