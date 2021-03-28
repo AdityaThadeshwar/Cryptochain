@@ -7,7 +7,7 @@ const CHANNELS = {
 }
 
 class PubSub {
-    constructor({ blockchain }) {
+    constructor(blockchain) {
 
         this.blockchain = blockchain;
 
@@ -27,18 +27,21 @@ class PubSub {
 
     //Handle/Log received message
     handleMessage(channel, message) {
+
         console.log(`Message received. Channel: ${channel}. Message: ${message}.`)
 
         //replace chain when it recives a chain in blockchain channel
         const parsedMessage = JSON.parse(message);
 
-        if(channel === CHANNELS.BLOCKCHAIN) {
+        if (channel === CHANNELS.BLOCKCHAIN) {
             this.blockchain.replaceChain(parsedMessage);
+
+            console.log('new chain: ', this.blockchain);
         }
     }
 
     subscribeToChannels() {
-        Object.values(CHANNELS).forEach( channel =>{
+        Object.values(CHANNELS).forEach(channel => {
             this.subscriber.subscribe(channel);
         });
     }
@@ -54,10 +57,11 @@ class PubSub {
             channel: CHANNELS.BLOCKCHAIN,
             message: JSON.stringify(this.blockchain.chain)
         });
+
     }
 }
 
-const testPubSub = new PubSub();
+//const testPubSub = new PubSub();
 
 //Publish a test message 1sec after the class is created
 //setTimeout( () => testPubSub.publisher.publish(CHANNELS.TEST, 'foo'), 1000);
