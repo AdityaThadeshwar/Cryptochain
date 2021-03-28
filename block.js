@@ -26,6 +26,7 @@ class Block{
         let nonce = 0;
         let i = 1;
 
+        //Generate new hash until it contains difficulty times 0s at the start of the digest
         do{
             nonce++;
             timestamp = Date.now();
@@ -53,7 +54,7 @@ class Block{
         let difference = timestamp - originalBlock.timestamp;
 
         if(difference > MINE_RATE)  return difficulty - 1;
-        
+
         return difficulty + 1;
     }
 }

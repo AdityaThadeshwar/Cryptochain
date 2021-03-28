@@ -12,6 +12,7 @@ class Blockchain{
     addBlock(data){
         const newBlock = Block.mineBlock(this.chain[this.chain.length-1], data);
 
+        //Only add new block if its valid
         if(Blockchain.isVaidChain(this.chain)) {
             this.chain.push(newBlock);
         }
