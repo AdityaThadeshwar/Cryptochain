@@ -31,8 +31,20 @@ class Transaction {
 
     update({ senderWallet, recipent, amount }) {
 
-        //update new recipent with new amount and uodate senders balance
-        this.outputMap[recipent] = amount;
+        //throw error is user sends more money than balance
+        if(amount > this.outputMap[senderWallet.publicKey]) {
+            throw new Error('Amount exceeds balance');
+        }
+
+        //if new recipent then assign it the amount
+        //is sending money to same recipent then update its balance
+        if(!this.outputMap[recipent]) {
+            this.outputMap[recipent] = amount;
+        } 
+        else {
+            this.outputMap[recipent] = this.outputMap[recipent] + amount;
+        }
+
         this.outputMap[senderWallet.publicKey] = this.outputMap[senderWallet.publicKey] - amount;
 
         //update input to resign the new transaction
