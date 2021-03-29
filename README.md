@@ -20,3 +20,9 @@ Body Parser dependency to parse request in json format
 
 Redis server for Publisher/Subscriber
 >npm i -redis@2.8.0 --save
+
+Cross env to allow app to run on multiple ports (Dev only)
+>npm i -coss-env@5.2.0 --save-dev
+
+Request to sync up new peer with the longest chain in the network
+>npm i request@2.88.0 --save
