@@ -11,7 +11,6 @@ const pubsub = new PubSub(blockchain)
 //Used to sync up chains for new peer
 const DEFAULT_PORT = 3000;
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
-//setTimeout(() => pubsub.broadcastChain(), 1000);
 
 app.use(bodyParser.json());
 
@@ -32,6 +31,7 @@ app.post('/api/mine', (req, res) => {
     res.redirect('/api/getBlocks');
 });
 
+//sync chain for newly connected peer
 const syncChains = () => {
     request({ url: `${ROOT_NODE_ADDRESS}/api/getBlocks`} , (error, response, body) => {
         if(!error && response.statusCode === 200) {
@@ -45,6 +45,7 @@ const syncChains = () => {
 
 let PEER_PORT;
 
+//generate new random port between 3000 and 3999 for new peer
 if(process.env.GENERATE_PEER_PORT === 'true') {
     PEER_PORT = DEFAULT_PORT + Math.ceil(Math.random() * 1000);
 }
@@ -52,5 +53,10 @@ if(process.env.GENERATE_PEER_PORT === 'true') {
 const PORT = PEER_PORT || DEFAULT_PORT;
 app.listen(PORT, () => {
     console.log(`listening to port: ${PORT}`);
-    syncChains();
+
+    //sync chain for every new peer that connects to the network
+    //No publish for root node as its running on port 3000
+    if(PORT !== DEFAULT_PORT) {
+        syncChains();
+    }
 });
