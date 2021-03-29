@@ -29,3 +29,6 @@ Request to sync up new peer with the longest chain in the network
 
 Elliptic to generate public/private key pairs for wallet
 >npm i elliptic@6.4.1 --save
+
+UUID to generate unique id
+>npm i uuid@3.3.2 --save
