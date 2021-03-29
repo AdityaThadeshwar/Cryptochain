@@ -35,8 +35,6 @@ class PubSub {
 
         if (channel === CHANNELS.BLOCKCHAIN) {
             this.blockchain.replaceChain(parsedMessage);
-
-            console.log('new chain: ', this.blockchain);
         }
     }
 

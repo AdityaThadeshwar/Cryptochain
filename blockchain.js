@@ -12,20 +12,22 @@ class Blockchain{
     addBlock(data){
         const newBlock = Block.mineBlock(this.chain[this.chain.length-1], data);
 
-        //Only add new block if its valid
-        if(Blockchain.isVaidChain(this.chain)) {
-            this.chain.push(newBlock);
-        }
+        // //Only add new block if its valid
+        // if(Blockchain.isVaidChain(this.chain)) {
+        //     this.chain.push(newBlock);
+        // }
 
-        else{
-            console.log('Invalid chain');
-            return;
-        } 
+        // else{
+        //     console.log('Invalid chain');
+        //     return;
+        // } 
+
+        this.chain.push(newBlock);
     }
 
 
     //validate if whole blockchain is valid
-    static isVaidChain(chain){
+    static isValidChain(chain){
 
         //compare only key/value pairs to be equal
         if(JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) return false;
@@ -56,14 +58,15 @@ class Blockchain{
 
     replaceChain(chain){
 
-        //return is incoming chain is same length as current chain
-        if(chain.lenght <= this.chain.lenght) {
+        //return if incoming chain is same length as current chain
+        if(chain.length <= this.chain.length) {
+            //console.log('chain.length', chain.length, 'this.chain.length', this.chain.length)
             console.error('Incoming chain must be longer');
             return;
         };
 
         //Return if incoming chain is invalid
-        if(!Blockchain.isVaidChain(chain)) {
+        if(!Blockchain.isValidChain(chain)) {
             console.error('Incoming chain is invalid');
             return;
         }
