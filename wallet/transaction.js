@@ -19,7 +19,7 @@ class Transaction {
         return outputMap;
     }
 
-    //input for the transaction
+    //helper method to create input for the transaction
     createInput({ senderWallet, outputMap }) {
         return {
             timestamp: Date.now(),
@@ -29,6 +29,18 @@ class Transaction {
         }
     }
 
+    update({ senderWallet, recipent, amount }) {
+
+        //update new recipent with new amount and uodate senders balance
+        this.outputMap[recipent] = amount;
+        this.outputMap[senderWallet.publicKey] = this.outputMap[senderWallet.publicKey] - amount;
+
+        //update input to resign the new transaction
+        this.input = this.createInput({ senderWallet, outputMap: this.outputMap});
+
+    }
+
+    //method to validate a transaction
     static validTransaction(transaction) {
         // const { input, outputMap } = transaction;
         // const{ address, amount, signature } = input
@@ -38,6 +50,7 @@ class Transaction {
         //Get total of all the values in the outputmap
         const outputTotal = Object.values(outputMap).reduce((total, outputAmount) => total + outputAmount);
 
+        //sum of outputmap should be equal to sender's balance or else its invalid
         if(amount !== outputTotal) {
             console.error(`Invalid transaction from: ${address}`);
             return false;
