@@ -26,3 +26,6 @@ Cross env to allow app to run on multiple ports (Dev only)
 
 Request to sync up new peer with the longest chain in the network
 >npm i request@2.88.0 --save
+
+Elliptic to generate public/private key pairs for wallet
+>npm i elliptic@6.4.1 --save
