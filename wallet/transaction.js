@@ -35,6 +35,7 @@ class Transaction {
 
         const { input: { address, amount, signature }, outputMap } = transaction;
 
+        //Get total of all the values in the outputmap
         const outputTotal = Object.values(outputMap).reduce((total, outputAmount) => total + outputAmount);
 
         if(amount !== outputTotal) {
