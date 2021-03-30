@@ -38,14 +38,23 @@ app.post('/api/mine', (req, res) => {
 //endpoint to make transaction
 app.post('/api/transact', (req, res) => {
     const { amount, recipent} = req.body;
+    let transaction;
 
-    const transaction = wallet.createTransaction({ recipent, amount});
+    //if createTransaction returns error, respond with error and stop further execution
+    try{
+        transaction = wallet.createTransaction({ recipent, amount});
+
+    } catch(error){
+        
+        return res.status(400).json({ type: 'error', message: error.message});
+    }
+    
 
     transactionPool.setTransaction(transaction);
 
     console.log('transaction pool', transactionPool);
 
-    res.json({ transactionPool });
+    res.json({ type: 'success', transaction });
 });
 
 //sync chain for newly connected peer

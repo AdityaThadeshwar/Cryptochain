@@ -25,7 +25,7 @@ class Wallet{
         }
 
         //Create new transaction if balance is within senders balance
-        return new Transaction({ senderWallet: this, recipient, amount });
+        return new Transaction({ senderWallet: this, recipent, amount });
     }
 }
 
